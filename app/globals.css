@@ -1,0 +1,273 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #e6ecf2;
+  --surface: #ffffff;
+  --text: #1a1a1a;
+  --muted: #6b6b6b;
+  --landed: #0f6a39;
+  --boarding: #7a5200;
+  --route: #0a4fb5;
+  /* The boarding pass always stays paper-coloured */
+  --board-bg: #16325a;
+  --board-tile: #244873;
+  --board-ink: #e8eef5;
+  --board-strong: #ffffff;
+  --board-muted: #a9bcd0;
+  --board-line: rgba(255, 255, 255, 0.12);
+  --board-hover: rgba(255, 255, 255, 0.06);
+  --board-landed: #4ade80;
+  --board-accent: #7cc0ff;
+  --board-boarding: #ffc72c;
+  --paper: #f4f1ea;
+  --paper-ink: #1a1a1a;
+  --paper-muted: #5f5a50;
+  --paper-line: #cfc8b8;
+  --paper-route: #0a4fb5;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0a0a0a;
+    --surface: #1c1c1c;
+    --text: #ededed;
+    --muted: #9a9a9a;
+    --landed: #3ddc84;
+    --boarding: #ffc72c;
+    --route: #4da3ff;
+    --board-bg: #0e2445;
+    --board-tile: #1a3660;
+    --board-ink: #e8eef5;
+    --board-strong: #ffffff;
+    --board-muted: #a9bcd0;
+    --board-line: rgba(255, 255, 255, 0.1);
+    --board-hover: rgba(255, 255, 255, 0.05);
+    --board-landed: #4ade80;
+    --board-accent: #7cc0ff;
+    --board-boarding: #ffc72c;
+  }
+}
+:root[data-theme="dark"] {
+  --board-bg: #0e2445;
+  --board-tile: #1a3660;
+  --board-ink: #e8eef5;
+  --board-strong: #ffffff;
+  --board-muted: #a9bcd0;
+  --board-line: rgba(255, 255, 255, 0.1);
+  --board-hover: rgba(255, 255, 255, 0.05);
+  --board-landed: #4ade80;
+  --board-accent: #7cc0ff;
+  --board-boarding: #ffc72c;
+  --bg: #0a0a0a;
+  --surface: #1c1c1c;
+  --text: #ededed;
+  --muted: #9a9a9a;
+  --landed: #3ddc84;
+  --boarding: #ffc72c;
+  --route: #4da3ff;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-text: var(--text);
+  --color-muted: var(--muted);
+  --color-landed: var(--landed);
+  --color-boarding: var(--boarding);
+  --color-route: var(--route);
+  --color-board-bg: var(--board-bg);
+  --color-board-tile: var(--board-tile);
+  --color-board-ink: var(--board-ink);
+  --color-board-strong: var(--board-strong);
+  --color-board-muted: var(--board-muted);
+  --color-board-line: var(--board-line);
+  --color-board-hover: var(--board-hover);
+  --color-board-landed: var(--board-landed);
+  --color-board-accent: var(--board-accent);
+  --color-board-boarding: var(--board-boarding);
+  --color-paper: var(--paper);
+  --color-paper-ink: var(--paper-ink);
+  --color-paper-muted: var(--paper-muted);
+  --color-paper-line: var(--paper-line);
+  --color-paper-route: var(--paper-route);
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-jetbrains);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+body {
+  background: var(--bg);
+  color: var(--text);
+}
+:focus-visible {
+  outline: 2px solid var(--route);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .blink,
+  .print-in {
+    animation: none !important;
+  }
+}
+@keyframes blink {
+  50% {
+    opacity: 0.25;
+  }
+}
+.blink {
+  animation: blink 1.4s steps(1) infinite;
+}
+
+/* Boarding pass "prints" in on load; pure CSS so it still shows without JavaScript */
+@keyframes print-in {
+  from {
+    opacity: 0;
+    transform: translateY(60px) rotate(-1.5deg);
+  }
+}
+.print-in {
+  animation: print-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ---------- Page texture: faint map grid + soft glow ---------- */
+body {
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -10%, color-mix(in srgb, var(--route) 14%, transparent), transparent 70%),
+    radial-gradient(circle at 1px 1px, color-mix(in srgb, var(--text) 9%, transparent) 1px, transparent 0);
+  background-size: 100% 100%, 26px 26px;
+  background-attachment: fixed;
+}
+
+/* ---------- Scroll reveal (only when JS is running, so content never stays hidden) ---------- */
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: calc(var(--i, 0) * 70ms);
+}
+.js [data-reveal="left"] {
+  transform: translateX(-48px);
+}
+.js [data-reveal="scale"] {
+  transform: scale(0.94);
+}
+.js [data-reveal][data-in] {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- Flights map ---------- */
+.js .route-draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 1.3s cubic-bezier(0.65, 0, 0.35, 1) 0.2s;
+}
+.flights-map[data-in] .route-draw {
+  stroke-dashoffset: 0;
+}
+.route-plane {
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.flights-map[data-in] .route-plane {
+  opacity: 1;
+}
+.flights-map:not([data-in]) .route-plane {
+  transition-delay: 0s !important;
+}
+@keyframes map-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.18); opacity: 0.5; }
+}
+.map-pulse {
+  animation: map-pulse 2s ease-in-out infinite;
+}
+@keyframes postcard-in {
+  from { opacity: 0; transform: translateY(12px) rotate(-1deg); }
+}
+.postcard-in {
+  animation: postcard-in 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ---------- Section plane ---------- */
+.plane-trail {
+  transition: opacity 0.9s ease 0.3s;
+}
+.plane-trail[data-fade="true"] {
+  opacity: 0;
+}
+@keyframes bob {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 4px 0; }
+}
+.plane[data-parked="true"] svg {
+  animation: bob 2.4s ease-in-out infinite;
+}
+.plane-label {
+  transition: opacity 0.3s;
+}
+.plane-label[data-flying="true"] {
+  opacity: 0;
+}
+
+/* ---------- Hero clouds ---------- */
+@keyframes drift {
+  from { transform: translateX(-30vw); }
+  to { transform: translateX(130vw); }
+}
+.cloud {
+  position: absolute;
+  left: 0;
+  border-radius: 9999px;
+  background: color-mix(in srgb, var(--text) 7%, transparent);
+  filter: blur(18px);
+  animation: drift linear infinite;
+}
+
+/* ---------- Pass hover ---------- */
+.pass-hover {
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s;
+}
+.pass-hover:hover {
+  transform: translateY(-6px) rotate(-0.4deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .js .route-draw {
+    stroke-dashoffset: 0;
+    transition: none;
+  }
+  .route-plane,
+  .cloud {
+    display: none;
+  }
+  .map-pulse,
+  .postcard-in,
+  .plane[data-parked="true"] svg {
+    animation: none;
+  }
+  .pass-hover:hover {
+    transform: none;
+  }
+}
+
+/* Paper-coloured halo so route lines pass cleanly behind map labels */
+.map-label {
+  stroke: var(--paper);
+  stroke-width: 7px;
+  stroke-linejoin: round;
+  paint-order: stroke;
+}
