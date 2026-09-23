@@ -130,7 +130,7 @@ export function DeparturesBoard() {
                     </button>
                   </td>
                   <td className="hidden py-3 text-board-muted md:table-cell">
-                    {f.kind === "experience" ? "WORK" : "PROJECT"}
+                    {f.kind === "experience" ? "INTERNSHIP" : "PROJECT"}
                   </td>
                   <td className="hidden py-3 text-board-strong sm:table-cell">{f.year}</td>
                   <td className="px-4 py-3 sm:px-6">
