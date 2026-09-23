@@ -92,6 +92,22 @@ export const flights: Flight[] = [
     ],
   },
   {
+    code: "SM252",
+    kind: "project",
+    destination: "SKYLER · NGO APP",
+    year: "2025",
+    status: "landed",
+    when: "Aug 2024 – Jul 2025",
+    title: "Skyler: NGO volunteer platform",
+    stack: ["Flutter", "Firebase", "Firestore"],
+    points: [
+      "Multi-organization platform for NGOs to manage volunteers, events, and donation drives; published on the App Store with 1000+ downloads across 8 partner NGOs.",
+      "Architected Firestore data models and role-based authentication for NGOs, volunteers, and secure workflows.",
+      "Built a gamification system (points, rewards, leaderboards) to incentivize participation and track engagement across donation drives.",
+    ],
+    links: [{ label: "GitHub", href: "https://github.com/shaurmittal/Skyler-App" }],
+  },
+  {
     code: "SM241",
     kind: "experience",
     destination: "ARTESIAN · MOBILE",
@@ -106,20 +122,6 @@ export const flights: Flight[] = [
       "Debugged issues and improved app performance with the engineering team.",
       "Evaluated mobile tools and frameworks for performance and maintainability.",
     ],
-  },
-  {
-    code: "SM242",
-    kind: "project",
-    destination: "CUSTOM GPT",
-    year: "2024",
-    status: "landed",
-    when: "2024",
-    title: "Custom GPT",
-    stack: ["Python", "OpenAI API"],
-    points: [
-      "Topic-tailored summaries built on OpenAI's API, using data from sources like Wikipedia.",
-    ],
-    links: [{ label: "GitHub", href: "https://github.com/shaurmittal/Custom-GPT" }],
   },
   {
     code: "SM243",
