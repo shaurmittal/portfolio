@@ -147,7 +147,7 @@ export function DeparturesBoard() {
           <tr className="border-t border-board-line">
             <td className="hidden px-4 py-3 text-board-strong sm:table-cell sm:px-6">{nextFlight.code}</td>
             <td className="py-3 pl-4 sm:pl-0">
-              <a href={profile.links.email} title="Hiring for 2027 co-op? Email me" aria-label="Your company: hiring for 2027 co-op? Email me" className="hover:underline">
+              <a href={profile.links.email} title="Hiring for Winter 2027 co-op? Email me" aria-label="Your company: hiring for Winter 2027 co-op? Email me" className="hover:underline">
                 <FlapText text={nextFlight.destination} delay={flights.length * 120} />
               </a>
             </td>

@@ -8,7 +8,7 @@ export const profile = {
   program: "Honours Computer Science, Co-op",
   gradYear: 2030,
   role: "AI / SWE",
-  status: "Open to 2027 co-op roles",
+  status: "Open to Winter 2027 co-op roles",
   interests: [
     { icon: "⚽", label: "Soccer" },
     { icon: "🎮", label: "Video games" },
