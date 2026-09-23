@@ -1,0 +1,8 @@
+node_modules/
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
+.DS_Store
+# original full-size photo (cropped copy lives in public/images)
+IMG_*.jpg
