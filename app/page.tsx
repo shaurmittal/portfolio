@@ -2,13 +2,14 @@ import { Arrivals } from "@/components/Arrivals";
 import { BaggageClaim } from "@/components/BaggageClaim";
 import { BoardingPass } from "@/components/BoardingPass";
 import { DeparturesBoard } from "@/components/DeparturesBoard";
-import { FlightPath } from "@/components/FlightPath";
+import { FlightLeg } from "@/components/FlightLeg";
 import { FlightsMap } from "@/components/FlightsMap";
 import { InFlightInfo } from "@/components/InFlightInfo";
+import { Intro } from "@/components/Intro";
 import { Nav } from "@/components/Nav";
 import { RevealObserver } from "@/components/RevealObserver";
 
-const section = "mx-auto max-w-5xl scroll-mt-20 px-4 py-10 sm:py-14";
+const section = "mx-auto max-w-5xl scroll-mt-20 px-4 py-6 sm:py-8";
 
 // Hero clouds: [top, width, height, duration, start offset]
 const clouds = [
@@ -20,13 +21,12 @@ const clouds = [
 export default function Home() {
   return (
     <>
+      <Intro />
       <Nav />
-      <FlightPath />
       <RevealObserver />
       <main id="main">
         <section
           id="boarding"
-          data-plane="NOW BOARDING|SM27"
           aria-label="Boarding pass"
           className="relative flex min-h-[calc(100svh-4rem)] flex-col items-center justify-center gap-8 overflow-hidden px-4 py-10"
         >
@@ -42,26 +42,31 @@ export default function Home() {
           <BoardingPass />
           <a
             href="#info"
-            className="relative font-mono text-xs uppercase tracking-[0.25em] text-muted hover:text-text"
+            className="pass-hint relative font-mono text-xs uppercase tracking-[0.25em] text-muted hover:text-text"
           >
             ↓ Scroll to take off
           </a>
         </section>
-        <section id="info" data-plane="REFUELING|A1" aria-label="About me" className={section}>
+        <FlightLeg reverse to={{ code: "A1", label: "About" }} />
+        <section id="info" aria-label="About me" className={section}>
           <InFlightInfo />
         </section>
-        <section id="departures" data-plane="REFUELING|A2" aria-label="Departures: experience and projects" className={section}>
+        <FlightLeg to={{ code: "A2", label: "Work" }} />
+        <section id="departures" aria-label="Departures: experience and projects" className={section}>
           <div data-reveal>
             <DeparturesBoard />
           </div>
         </section>
-        <section id="flights" data-plane="REFUELING|B2" aria-label="Flights I've taken" className={section}>
+        <FlightLeg reverse to={{ code: "B2", label: "Map" }} />
+        <section id="flights" aria-label="Flights I've taken" className={section}>
           <FlightsMap />
         </section>
-        <section id="baggage" data-plane="REFUELING|C1" aria-label="Skills" className={section}>
+        <FlightLeg to={{ code: "C1", label: "Skills" }} />
+        <section id="baggage" aria-label="Skills" className={section}>
           <BaggageClaim />
         </section>
-        <section id="arrivals" data-plane="LANDED|D1" aria-label="Contact" className={section}>
+        <FlightLeg reverse to={{ code: "D1", label: "Contact" }} />
+        <section id="arrivals" aria-label="Contact" className={section}>
           <div data-reveal="scale">
             <Arrivals />
           </div>

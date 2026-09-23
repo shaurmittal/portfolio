@@ -18,7 +18,7 @@ export const profile = {
     resume: "/Shaurya_Mittal_Resume.pdf",
     github: "https://github.com/shaurmittal",
     linkedin: "https://www.linkedin.com/in/shaurya2114",
-    email: "mailto:shaurmittal@gmail.com",
+    email: "mailto:shaurya.mittal@uwaterloo.ca",
   },
 };
 
