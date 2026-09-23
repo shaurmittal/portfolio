@@ -20,7 +20,7 @@ export function Arrivals() {
         <p className="text-xs font-bold uppercase tracking-[0.25em] text-board-accent">Gate D1 · Contact</p>
         <h2 className="mt-3 font-sans text-4xl font-bold tracking-tight text-board-strong sm:text-5xl">You&apos;ve arrived.</h2>
         <p className="mt-4 max-w-xl font-sans text-lg leading-relaxed text-board-ink">
-          Thanks for flying with me. If you&apos;re hiring for AI or software roles, my seat is open for 2027 co-op.
+          Thanks for flying with me. If you&apos;re hiring for AI or software roles, my seat is open for 2027 Winter.
           Next destination: your team.
         </p>
 
