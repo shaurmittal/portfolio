@@ -28,6 +28,7 @@ export function FlightLeg({ to, reverse = false }: { to: Stop; reverse?: boolean
     let lastY = window.scrollY;
     let up = false;
     let frame = 0;
+    let shown = -1; // eased progress that glides toward the scroll position
 
     const render = () => {
       frame = 0;
@@ -40,9 +41,14 @@ export function FlightLeg({ to, reverse = false }: { to: Stop; reverse?: boolean
       const text = bannerRef.current?.querySelector("text");
       const bannerW = (text?.getComputedTextLength() ?? bannerText.length * 8) + 32;
 
-      // 0 when the band enters at the bottom of the screen, 1 when it nears the top
+      // 0 as the band enters at the bottom of the screen, 1 as it leaves the top
       const center = band.getBoundingClientRect().top + H / 2;
-      const p = reduce ? 0.5 : clamp01((vh * 0.95 - center) / (vh * 0.8));
+      const target = reduce ? 0.5 : clamp01((vh * 1.02 - center) / (vh * 1.1));
+      // Glide toward the target instead of snapping to it
+      shown = shown < 0 || reduce ? target : shown + (target - shown) * 0.08;
+      if (Math.abs(target - shown) > 0.0005) schedule();
+      else shown = target;
+      const p = shown;
 
       if (window.scrollY !== lastY) up = window.scrollY < lastY;
       lastY = window.scrollY;
