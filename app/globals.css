@@ -111,7 +111,12 @@ body {
     scroll-behavior: auto;
   }
   .blink,
-  .print-in {
+  .pass-print *,
+  .pass-print > article,
+  .pass-hint,
+  header,
+  .intro *,
+  .leg-ping {
     animation: none !important;
   }
 }
@@ -124,15 +129,132 @@ body {
   animation: blink 1.4s steps(1) infinite;
 }
 
-/* Boarding pass "prints" in on load; pure CSS so it still shows without JavaScript */
-@keyframes print-in {
-  from {
-    opacity: 0;
-    transform: translateY(60px) rotate(-1.5deg);
-  }
+/* ---------- Boarding pass entrance (runs once the visitor has boarded) ----------
+   0.3s  pass rises into place
+   0.8s  contents fill in one by one (--d sets the order)
+   1.1s  route plane flies IXC → mid-route
+   1.4s  barcode prints left to right
+   2.0s  "cleared for takeoff" stamp lands
+   2.2s  nav + scroll hint appear */
+.js:not(.boarded) .pass-print,
+.js:not(.boarded) .pass-hint,
+.js:not(.boarded) header {
+  opacity: 0;
 }
-.print-in {
-  animation: print-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+.js:not(.boarded) body {
+  overflow: hidden;
+}
+@keyframes pass-in {
+  from { opacity: 0; transform: translateY(48px) scale(0.96); }
+}
+.boarded .pass-print > article {
+  animation: pass-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.3s backwards;
+}
+@keyframes pass-item {
+  from { opacity: 0; transform: translateY(10px); }
+}
+.boarded .pass-item {
+  animation: pass-item 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(0.8s + var(--d, 0) * 0.08s);
+}
+@keyframes pass-photo {
+  from { opacity: 0.2; filter: grayscale(1) blur(6px) brightness(1.4); }
+}
+.boarded .pass-photo {
+  animation: pass-photo 1.2s ease 0.85s both;
+}
+@keyframes pass-route-plane {
+  from { left: 0%; opacity: 0; }
+  15% { opacity: 1; }
+  to { left: 50%; }
+}
+.pass-route-plane {
+  left: 50%;
+}
+.boarded .pass-route-plane {
+  animation: pass-route-plane 1.2s cubic-bezier(0.45, 0, 0.2, 1) 1.1s both;
+}
+@keyframes pass-bar {
+  from { transform: scaleY(0); }
+}
+.boarded .pass-barcode rect {
+  transform-box: fill-box;
+  transform-origin: bottom;
+  animation: pass-bar 0.25s ease-out both;
+  animation-delay: calc(1.4s + var(--b, 0) * 14ms);
+}
+@keyframes pass-stamp {
+  0% { opacity: 0; transform: scale(2.4) rotate(-24deg); }
+  60% { opacity: 0.9; transform: scale(0.94) rotate(-12deg); }
+  100% { opacity: 0.85; transform: scale(1) rotate(-12deg); }
+}
+.pass-stamp {
+  opacity: 0.85;
+  transform: rotate(-12deg);
+}
+.boarded .pass-stamp {
+  animation: pass-stamp 0.45s cubic-bezier(0.3, 0, 0.3, 1.4) 2s both;
+}
+@keyframes fade-down {
+  from { opacity: 0; transform: translateY(-8px); }
+}
+.boarded .pass-hint,
+.boarded header {
+  animation: fade-down 0.6s ease 2.2s both;
+}
+
+/* ---------- Intro ("Ready for takeoff?") ---------- */
+.intro {
+  display: none;
+}
+.js .intro {
+  display: flex;
+}
+.skip-intro .intro {
+  display: none;
+}
+@keyframes intro-line {
+  from { opacity: 0; transform: translateY(16px); filter: blur(6px); }
+}
+.intro-line {
+  animation: intro-line 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(0.15s + var(--d, 0) * 0.12s);
+}
+@keyframes intro-progress {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+.intro-progress {
+  transform-origin: left;
+  animation: intro-progress 3.2s linear 0.9s both;
+}
+.intro[data-state="leaving"] {
+  transition: opacity 0.5s ease 0.55s;
+  opacity: 0;
+}
+.intro[data-state="leaving"] .intro-content {
+  transition: transform 0.6s cubic-bezier(0.5, 0, 0.75, 0), opacity 0.4s;
+  transform: translateY(-40px);
+  opacity: 0;
+}
+.intro-takeoff {
+  opacity: 0;
+}
+@keyframes takeoff {
+  0% { opacity: 1; transform: translate(-10vw, 85vh) rotate(55deg) scale(0.6); }
+  100% { opacity: 1; transform: translate(110vw, -20vh) rotate(55deg) scale(1.4); }
+}
+.intro[data-state="leaving"] .intro-takeoff {
+  animation: takeoff 1s cubic-bezier(0.55, 0, 0.35, 1) both;
+}
+
+/* ---------- Flight legs between sections ---------- */
+@keyframes leg-ping {
+  from { transform: scale(0.6); opacity: 1; }
+  to { transform: scale(2.2); opacity: 0; }
+}
+.leg-ping {
+  animation: leg-ping 1.4s ease-out infinite;
 }
 
 /* ---------- Page texture: faint map grid + soft glow ---------- */
@@ -197,27 +319,6 @@ body {
   animation: postcard-in 0.45s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* ---------- Section plane ---------- */
-.plane-trail {
-  transition: opacity 0.9s ease 0.3s;
-}
-.plane-trail[data-fade="true"] {
-  opacity: 0;
-}
-@keyframes bob {
-  0%, 100% { translate: 0 0; }
-  50% { translate: 4px 0; }
-}
-.plane[data-parked="true"] svg {
-  animation: bob 2.4s ease-in-out infinite;
-}
-.plane-label {
-  transition: opacity 0.3s;
-}
-.plane-label[data-flying="true"] {
-  opacity: 0;
-}
-
 /* ---------- Hero clouds ---------- */
 @keyframes drift {
   from { transform: translateX(-30vw); }
@@ -255,8 +356,7 @@ body {
     display: none;
   }
   .map-pulse,
-  .postcard-in,
-  .plane[data-parked="true"] svg {
+  .postcard-in {
     animation: none;
   }
   .pass-hover:hover {

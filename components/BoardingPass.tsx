@@ -20,16 +20,21 @@ const stubLinks = [
   { label: "Email", href: profile.links.email },
 ];
 
+// Entrance order for each piece of the pass (see .pass-item in globals.css)
+const step = (n: number) => ({ ["--d" as string]: n });
+
 export function BoardingPass() {
   const [first, last] = profile.name.split(" ");
 
   return (
+    // Rises into place after the intro, then its contents fill in (see globals.css)
+    <div className="pass-print relative w-full max-w-4xl">
       <article
-        className="print-in pass-hover relative flex w-full max-w-4xl flex-col overflow-hidden rounded-2xl bg-paper text-paper-ink shadow-[0_30px_80px_-20px_rgba(0,0,0,0.55)] md:flex-row"
+        className="pass-hover relative flex w-full max-w-4xl flex-col overflow-hidden rounded-2xl bg-paper text-paper-ink shadow-[0_30px_80px_-20px_rgba(0,0,0,0.55)] md:flex-row"
       >
         {/* Main section */}
-        <div className="flex-1 p-6 sm:p-8">
-          <div className="flex items-center justify-between border-b border-paper-line pb-3 font-mono text-xs font-bold tracking-[0.25em]">
+        <div className="relative flex-1 p-6 sm:p-8">
+          <div style={step(0)} className="pass-item flex items-center justify-between border-b border-paper-line pb-3 font-mono text-xs font-bold tracking-[0.25em]">
             <span className="flex items-center gap-2">
               <PlaneIcon className="h-4 w-4 rotate-90 text-paper-route" />
               SM AIRWAYS
@@ -43,25 +48,28 @@ export function BoardingPass() {
               alt={`Photo of ${profile.name}`}
               width={112}
               height={112}
-              className="h-20 w-20 shrink-0 rounded-xl object-cover ring-1 ring-paper-line sm:h-28 sm:w-28"
+              style={step(1)}
+              className="pass-photo h-20 w-20 shrink-0 rounded-xl object-cover ring-1 ring-paper-line sm:h-28 sm:w-28"
             />
-            <div>
+            <div style={step(2)} className="pass-item">
               <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-paper-muted">Passenger</p>
               <h1 className="text-3xl font-bold leading-tight tracking-tight sm:text-5xl">{profile.name}</h1>
               <p className="mt-1 text-sm text-paper-muted sm:text-base">{profile.tagline}</p>
             </div>
           </div>
 
-          <div className="mt-7 flex items-center gap-4">
+          <div style={step(3)} className="pass-item mt-7 flex items-center gap-4">
             <div>
               <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-paper-muted">From</p>
               <p className="font-mono text-3xl font-bold sm:text-4xl">IXC</p>
               <p className="text-xs text-paper-muted">Chandigarh, IN</p>
             </div>
-            <div className="flex flex-1 items-center gap-2 text-paper-line" aria-hidden="true">
-              <span className="h-px flex-1 border-t-2 border-dashed border-paper-line" />
-              <PlaneIcon className="h-6 w-6 rotate-90 text-paper-route" />
-              <span className="h-px flex-1 border-t-2 border-dashed border-paper-line" />
+            <div className="relative flex h-6 flex-1 items-center" aria-hidden="true">
+              <span className="h-px w-full border-t-2 border-dashed border-paper-line" />
+              {/* Flies from IXC to the middle of the route */}
+              <span className="pass-route-plane absolute top-0 -ml-3 text-paper-route">
+                <PlaneIcon className="h-6 w-6 rotate-90" />
+              </span>
             </div>
             <div className="text-right">
               <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-paper-muted">To</p>
@@ -70,14 +78,14 @@ export function BoardingPass() {
             </div>
           </div>
 
-          <dl className="mt-7 grid grid-cols-2 gap-4 border-t border-paper-line pt-5 sm:grid-cols-4">
+          <dl style={step(4)} className="pass-item mt-7 grid grid-cols-2 gap-4 border-t border-paper-line pt-5 sm:grid-cols-4">
             <Field label="Flight" value="SM27" />
             <Field label="Seat" value={profile.role} />
             <Field label="Class" value="CS Co-op" />
             <Field label="Arrival" value={`Grad ${profile.gradYear}`} />
           </dl>
 
-          <div className="mt-5">
+          <div style={step(5)} className="pass-item mt-5">
             <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-paper-muted">In-flight interests</p>
             <ul className="mt-2 flex flex-wrap gap-2">
               {profile.interests.map((i) => (
@@ -91,10 +99,20 @@ export function BoardingPass() {
             </ul>
           </div>
 
-          <p className="mt-5 flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-[0.15em]">
+          <p style={step(6)} className="pass-item mt-5 flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-[0.15em]">
             <span className="blink h-2.5 w-2.5 rounded-full bg-[#1e9e57]" aria-hidden="true" />
             Status: Now boarding · {profile.status}
           </p>
+
+          {/* Passport-style stamp that lands at the end (only where there's room for it) */}
+          <span
+            aria-hidden="true"
+            className="pass-stamp absolute bottom-[4.6rem] right-8 hidden rounded-lg border-[3px] border-paper-route px-3 py-1.5 text-center font-mono text-[11px] font-bold uppercase leading-tight tracking-[0.2em] text-paper-route lg:block"
+          >
+            Cleared for
+            <br />
+            takeoff
+          </span>
         </div>
 
         {/* Perforation */}
@@ -106,16 +124,16 @@ export function BoardingPass() {
 
         {/* Stub */}
         <aside className="flex flex-col gap-5 p-6 sm:p-8 md:w-64" aria-label="Links">
-          <dl className="grid grid-cols-2 gap-4 md:grid-cols-1">
+          <dl style={step(2)} className="pass-item grid grid-cols-2 gap-4 md:grid-cols-1">
             <Field label="Passenger" value={`${last.toUpperCase()} / ${first.toUpperCase()}`} />
             <Field label="Flight" value="SM27" />
           </dl>
           <ul className="grid grid-cols-2 gap-2 md:grid-cols-1">
-            {stubLinks.map((l) => (
-              <li key={l.label}>
+            {stubLinks.map((l, i) => (
+              <li key={l.label} style={step(3 + i * 0.6)} className="pass-item">
                 <a
                   href={l.href}
-                  {...(l.href.startsWith("http") ? { target: "_blank", rel: "noreferrer" } : {})}
+                  {...(l.href.startsWith("mailto:") ? {} : { target: "_blank", rel: "noreferrer" })}
                   className="block rounded-lg border border-paper-ink/80 px-3 py-2 text-center font-mono text-xs font-bold uppercase tracking-widest transition-colors hover:bg-paper-ink hover:text-paper"
                 >
                   {l.label}
@@ -123,10 +141,11 @@ export function BoardingPass() {
               </li>
             ))}
           </ul>
-          <a href={profile.links.resume} aria-label="Open resume" className="mt-auto block text-paper-ink">
-            <Barcode value="SHAURYAMITTAL" className="h-12 w-full" />
+          <a href={profile.links.resume} target="_blank" rel="noreferrer" aria-label="Open resume in a new tab" className="mt-auto block text-paper-ink">
+            <Barcode value="SHAURYAMITTAL" className="pass-barcode h-12 w-full" />
           </a>
         </aside>
       </article>
+    </div>
   );
 }

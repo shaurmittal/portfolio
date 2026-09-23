@@ -11,7 +11,7 @@ export function Barcode({ value, className = "" }: { value: string; className?: 
   return (
     <svg viewBox={`0 0 ${x} 40`} preserveAspectRatio="none" aria-hidden="true" className={className}>
       {bars.map((b, i) => (
-        <rect key={i} x={b.x} y={0} width={b.w} height={40} fill="currentColor" />
+        <rect key={i} x={b.x} y={0} width={b.w} height={40} fill="currentColor" style={{ ["--b" as string]: i }} />
       ))}
     </svg>
   );

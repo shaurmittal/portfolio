@@ -37,7 +37,7 @@ export function Arrivals() {
             <li key={l.label}>
               <a
                 href={l.href}
-                {...(l.href.startsWith("http") ? { target: "_blank", rel: "noreferrer" } : {})}
+                {...(l.href.startsWith("mailto:") ? {} : { target: "_blank", rel: "noreferrer" })}
                 className="inline-block rounded-lg border border-board-line px-4 py-2 text-xs font-bold uppercase tracking-widest text-board-strong hover:border-board-accent hover:text-board-accent"
               >
                 {l.label}
