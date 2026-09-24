@@ -7,6 +7,7 @@ import { AIRLINER_BODY, AIRLINER_ENGINES } from "./Airliner";
 type Stop = { code: string; label: string };
 
 const clamp01 = (n: number) => Math.min(1, Math.max(0, n));
+const TRACKING = 0.18; // banner letter-spacing, in em
 
 // A big banner-towing plane that crosses the whole screen between two
 // sections. Its position is tied to scroll, so it flies exactly as fast as the
@@ -25,6 +26,7 @@ export function FlightLeg({ to, reverse = false }: { to: Stop; reverse?: boolean
     const band = bandRef.current;
     if (!band) return;
     const reduce = prefersReducedMotion();
+    const measure = document.createElement("canvas").getContext("2d")!;
     let lastY = window.scrollY;
     let up = false;
     let frame = 0;
@@ -38,8 +40,19 @@ export function FlightLeg({ to, reverse = false }: { to: Stop; reverse?: boolean
       const small = W < 640;
       const size = small ? 64 : 112;
       // Size the banner to the rendered text (letter-spacing included)
+      // Size the banner ourselves: Safari's SVG text measurement ignores letter-spacing,
+      // so measure the plain text on a canvas, add the tracking, and pin the SVG text to
+      // exactly that width with textLength (the same result in every browser)
       const text = bannerRef.current?.querySelector("text");
-      const bannerW = (text?.getComputedTextLength() ?? bannerText.length * 8) + 32;
+      let textW = bannerText.length * 8;
+      if (text) {
+        const cs = getComputedStyle(text);
+        const fontSize = parseFloat(cs.fontSize);
+        measure.font = `${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`;
+        textW = measure.measureText(bannerText).width + fontSize * TRACKING * (bannerText.length - 1);
+        text.setAttribute("textLength", `${textW}`);
+      }
+      const bannerW = textW + 32;
 
       // 0 as the band enters at the bottom of the screen, 1 as it leaves the top
       const center = band.getBoundingClientRect().top + H / 2;
@@ -116,7 +129,7 @@ export function FlightLeg({ to, reverse = false }: { to: Stop; reverse?: boolean
         <line ref={ropeRef} strokeWidth="1.2" className="stroke-text/40" />
         <g ref={bannerRef}>
           <rect height="28" rx="6" className="fill-paper stroke-paper-route" strokeWidth="1.5" />
-          <text y="18.5" textAnchor="middle" className="fill-paper-route font-mono text-[11px] font-bold tracking-[0.18em] sm:text-[12px]">
+          <text y="18.5" textAnchor="middle" lengthAdjust="spacing" className="fill-paper-route font-mono text-[11px] font-bold sm:text-[12px]">
             {bannerText}
           </text>
         </g>
