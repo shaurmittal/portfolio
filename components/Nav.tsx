@@ -1,4 +1,5 @@
 import { PlaneIcon } from "./PlaneIcon";
+import { ThemeToggle } from "./ThemeToggle";
 
 const items = [
   { href: "#info", label: "About" },
@@ -16,8 +17,9 @@ export function Nav() {
       >
         <a href="#boarding" className="flex items-center gap-2 font-mono text-sm font-bold tracking-widest">
           <PlaneIcon className="h-4 w-4 rotate-90 text-route" />
-          SM AIRWAYS
+          SM<span className="hidden min-[400px]:inline"> AIRWAYS</span>
         </a>
+        <div className="flex items-center gap-3 sm:gap-5">
         <ul className="flex gap-3 font-mono text-[10px] sm:gap-5 sm:text-xs uppercase tracking-widest text-muted">
           {items.map((i) => (
             <li key={i.href}>
@@ -27,6 +29,8 @@ export function Nav() {
             </li>
           ))}
         </ul>
+        <ThemeToggle />
+        </div>
       </nav>
     </header>
   );

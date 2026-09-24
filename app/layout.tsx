@@ -33,11 +33,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${inter.variable} ${jetbrains.variable}`} suppressHydrationWarning>
       <head>
         {/* Runs before first paint: marks JS as available (so animation-only styles can't hide
-            content without it) and skips the intro if the visitor already boarded this session */}
+            content without it) and skips the intro if the visitor already boarded this session, and applies a saved
+            light/dark choice so the page never flashes the wrong theme */}
         <script
           dangerouslySetInnerHTML={{
             __html:
-              "var h=document.documentElement;h.classList.add('js');try{if(sessionStorage.getItem('boarded'))h.classList.add('boarded','skip-intro')}catch(e){}",
+              "var h=document.documentElement;h.classList.add('js');try{if(sessionStorage.getItem('boarded'))h.classList.add('boarded','skip-intro');var t=localStorage.getItem('theme');if(t==='light'||t==='dark')h.dataset.theme=t}catch(e){}",
           }}
         />
       </head>
