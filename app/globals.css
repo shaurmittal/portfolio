@@ -374,3 +374,11 @@ body {
   stroke-linejoin: round;
   paint-order: stroke;
 }
+
+/* "Email copied" confirmation */
+@keyframes toast-in {
+  from { opacity: 0; transform: translateY(12px); }
+}
+.email-toast {
+  animation: toast-in 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}

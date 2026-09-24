@@ -1,4 +1,5 @@
 import { profile } from "@/content/data";
+import { EmailLink } from "./EmailLink";
 import { PlaneIcon } from "./PlaneIcon";
 
 const links = [
@@ -24,13 +25,10 @@ export function Arrivals() {
           Next destination: your team.
         </p>
 
-        <a
-          href={profile.links.email}
-          className="mt-8 inline-flex items-center gap-3 rounded-xl bg-board-accent px-5 py-3 text-sm font-bold text-board-bg transition-transform hover:-translate-y-0.5 sm:text-base"
-        >
+        <EmailLink className="mt-8 inline-flex items-center gap-3 rounded-xl bg-board-accent px-5 py-3 text-sm font-bold text-board-bg transition-transform hover:-translate-y-0.5 sm:text-base">
           <PlaneIcon className="h-4 w-4 rotate-90" />
           {email}
-        </a>
+        </EmailLink>
 
         <ul className="mt-5 flex flex-wrap gap-3">
           {links.map((l) => (
