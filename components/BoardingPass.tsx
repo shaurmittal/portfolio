@@ -1,6 +1,7 @@
 import { profile } from "@/content/data";
 import { Barcode } from "./Barcode";
 import { EmailLink } from "./EmailLink";
+import { InterestIcon } from "./Icons";
 import { PlaneIcon } from "./PlaneIcon";
 
 function Field({ label, value, big = false }: { label: string; value: string; big?: boolean }) {
@@ -87,14 +88,15 @@ export function BoardingPass() {
           </dl>
 
           <div style={step(5)} className="pass-item mt-5">
-            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-paper-muted">In-flight interests</p>
+            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-paper-muted">In-flight entertainment</p>
             <ul className="mt-2 flex flex-wrap gap-2">
               {profile.interests.map((i) => (
                 <li
                   key={i.label}
-                  className="rounded-full border border-paper-line bg-white/60 px-3 py-1 text-sm"
+                  className="flex items-center gap-1.5 rounded-full border border-paper-line bg-white/60 py-1 pl-2.5 pr-3 text-sm"
                 >
-                  <span aria-hidden="true">{i.icon}</span> {i.label}
+                  <InterestIcon icon={i.icon} className="h-4 w-4 text-paper-route" />
+                  {i.label}
                 </li>
               ))}
             </ul>
@@ -108,7 +110,7 @@ export function BoardingPass() {
           {/* Passport-style stamp that lands at the end (only where there's room for it) */}
           <span
             aria-hidden="true"
-            className="pass-stamp absolute bottom-[4.6rem] right-8 hidden rounded-lg border-[3px] border-paper-route px-3 py-1.5 text-center font-mono text-[11px] font-bold uppercase leading-tight tracking-[0.2em] text-paper-route lg:block"
+            className="pass-stamp absolute bottom-[4.4rem] right-7 hidden rounded-lg border-[3px] border-stamp px-4 py-2 text-center font-mono text-sm font-extrabold uppercase leading-tight tracking-[0.2em] text-stamp shadow-[inset_0_0_0_2px_var(--paper),inset_0_0_0_4px_var(--stamp)] lg:block"
           >
             Cleared for
             <br />

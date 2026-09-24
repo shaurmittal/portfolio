@@ -25,6 +25,7 @@
   --paper-muted: #5f5a50;
   --paper-line: #cfc8b8;
   --paper-route: #0a4fb5;
+  --stamp: #c62828;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -93,6 +94,7 @@
   --color-paper-muted: var(--paper-muted);
   --color-paper-line: var(--paper-line);
   --color-paper-route: var(--paper-route);
+  --color-stamp: var(--stamp);
   --font-sans: var(--font-inter);
   --font-mono: var(--font-jetbrains);
 }
@@ -381,4 +383,24 @@ body {
 }
 .email-toast {
   animation: toast-in 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ---------- Plane cursor (mouse/trackpad only; touch screens have no cursor) ----------
+   Dark plane normally, blue over anything clickable. Hotspot = the plane's nose. */
+@media (pointer: fine) {
+  html {
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cg transform='rotate%28-45 16 16%29 scale%28.5%29'%3E%3Cpath d='M32 2C35 2 36 6 36 10V24L60 36V41L36 35V50L44 56V60L32 57L20 60V56L28 50V35L4 41V36L28 24V10C28 6 29 2 32 2Z' fill='%231a1a1a' stroke='white' stroke-width='4' stroke-linejoin='round' paint-order='stroke'/%3E%3C/g%3E%3C/svg%3E") 5 5, auto;
+  }
+  a,
+  button,
+  [role="button"],
+  summary,
+  label,
+  .cursor-pointer {
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cg transform='rotate%28-45 16 16%29 scale%28.5%29'%3E%3Cpath d='M32 2C35 2 36 6 36 10V24L60 36V41L36 35V50L44 56V60L32 57L20 60V56L28 50V35L4 41V36L28 24V10C28 6 29 2 32 2Z' fill='%232f7de1' stroke='white' stroke-width='4' stroke-linejoin='round' paint-order='stroke'/%3E%3C/g%3E%3C/svg%3E") 5 5, pointer;
+  }
+  input,
+  textarea {
+    cursor: text;
+  }
 }

@@ -16,3 +16,33 @@ export function DestIcon({ icon, className = "" }: { icon: Destination["icon"]; 
     </svg>
   );
 }
+
+// Icons for the boarding pass's in-flight entertainment chips
+export type InterestIconName = "soccer" | "gaming" | "ai";
+
+export function InterestIcon({ icon, className = "" }: { icon: string; className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className={className}>
+      {icon === "soccer" && (
+        <g fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round">
+          <circle cx="12" cy="12" r="9" />
+          <path d="M12 8.2l3.6 2.6-1.4 4.2H9.8l-1.4-4.2z" fill="currentColor" />
+          <path d="M12 8.2V3.3M15.6 10.8l4.6-1.5M14.2 15l2.9 3.9M9.8 15l-2.9 3.9M8.4 10.8L3.8 9.3" />
+        </g>
+      )}
+      {icon === "gaming" && (
+        <path
+          fillRule="evenodd"
+          fill="currentColor"
+          d="M7 7.5h10a5 5 0 0 1 4.9 6l-.7 3.4a2.5 2.5 0 0 1-4.4 1.1l-1.4-2h-6.8l-1.4 2a2.5 2.5 0 0 1-4.4-1.1l-.7-3.4A5 5 0 0 1 7 7.5zM7 10v1.6H5.4v1.6H7v1.6h1.6v-1.6h1.6v-1.6H8.6V10zm9.2.3a1.1 1.1 0 1 0 0 2.2 1.1 1.1 0 0 0 0-2.2zm-1.8 2.5a1.1 1.1 0 1 0 0 2.2 1.1 1.1 0 0 0 0-2.2z"
+        />
+      )}
+      {icon === "ai" && (
+        <path
+          fill="currentColor"
+          d="M11 3l1.9 5.6L18.5 10.5l-5.6 1.9L11 18l-1.9-5.6L3.5 10.5l5.6-1.9zM18.5 14.5l.9 2.4 2.4.9-2.4.9-.9 2.4-.9-2.4-2.4-.9 2.4-.9z"
+        />
+      )}
+    </svg>
+  );
+}
