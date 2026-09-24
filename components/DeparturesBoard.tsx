@@ -2,6 +2,7 @@
 
 import { Fragment, useState } from "react";
 import { flights, profile, type Flight } from "@/content/data";
+import { EmailLink } from "./EmailLink";
 import { FlapText } from "./FlapText";
 import { PlaneIcon } from "./PlaneIcon";
 
@@ -147,9 +148,9 @@ export function DeparturesBoard() {
           <tr className="border-t border-board-line">
             <td className="hidden px-4 py-3 text-board-strong sm:table-cell sm:px-6">{nextFlight.code}</td>
             <td className="py-3 pl-4 sm:pl-0">
-              <a href={profile.links.email} title="Hiring for Winter 2027 co-op? Email me" aria-label="Your company: hiring for Winter 2027 co-op? Email me" className="hover:underline">
+              <EmailLink title="Hiring for Winter 2027 co-op? Email me" ariaLabel="Your company: hiring for Winter 2027 co-op? Email me" className="hover:underline">
                 <FlapText text={nextFlight.destination} delay={flights.length * 120} />
-              </a>
+              </EmailLink>
             </td>
             <td className="hidden py-3 text-board-muted md:table-cell">CO-OP</td>
             <td className="hidden py-3 text-board-strong sm:table-cell">{nextFlight.year}</td>

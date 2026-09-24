@@ -1,5 +1,6 @@
 import { profile } from "@/content/data";
 import { Barcode } from "./Barcode";
+import { EmailLink } from "./EmailLink";
 import { PlaneIcon } from "./PlaneIcon";
 
 function Field({ label, value, big = false }: { label: string; value: string; big?: boolean }) {
@@ -131,13 +132,13 @@ export function BoardingPass() {
           <ul className="grid grid-cols-2 gap-2 md:grid-cols-1">
             {stubLinks.map((l, i) => (
               <li key={l.label} style={step(3 + i * 0.6)} className="pass-item">
-                <a
-                  href={l.href}
-                  {...(l.href.startsWith("mailto:") ? {} : { target: "_blank", rel: "noreferrer" })}
-                  className="block rounded-lg border border-paper-ink/80 px-3 py-2 text-center font-mono text-xs font-bold uppercase tracking-widest transition-colors hover:bg-paper-ink hover:text-paper"
-                >
-                  {l.label}
-                </a>
+                {l.href.startsWith("mailto:") ? (
+                  <EmailLink className="block rounded-lg border border-paper-ink/80 px-3 py-2 text-center font-mono text-xs font-bold uppercase tracking-widest transition-colors hover:bg-paper-ink hover:text-paper">{l.label}</EmailLink>
+                ) : (
+                  <a href={l.href} target="_blank" rel="noreferrer" className="block rounded-lg border border-paper-ink/80 px-3 py-2 text-center font-mono text-xs font-bold uppercase tracking-widest transition-colors hover:bg-paper-ink hover:text-paper">
+                    {l.label}
+                  </a>
+                )}
               </li>
             ))}
           </ul>
