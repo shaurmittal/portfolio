@@ -9,10 +9,11 @@ export const profile = {
   gradYear: 2030,
   role: "AI / SWE",
   status: "Open to Winter 2027 co-op roles",
+  // icon: "soccer" | "gaming" | "ai" (drawn in components/Icons.tsx)
   interests: [
-    { icon: "⚽", label: "Soccer" },
-    { icon: "🎮", label: "Video games" },
-    { icon: "🤖", label: "AI" },
+    { icon: "soccer", label: "Soccer" },
+    { icon: "gaming", label: "Video games" },
+    { icon: "ai", label: "AI" },
   ],
   links: {
     resume: "/Shaurya_Mittal_Resume.pdf",

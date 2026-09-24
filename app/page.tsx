@@ -7,6 +7,7 @@ import { FlightsMap } from "@/components/FlightsMap";
 import { InFlightInfo } from "@/components/InFlightInfo";
 import { Intro } from "@/components/Intro";
 import { Nav } from "@/components/Nav";
+import { PlaneIcon } from "@/components/PlaneIcon";
 import { RevealObserver } from "@/components/RevealObserver";
 
 const section = "mx-auto max-w-5xl scroll-mt-20 px-4 py-6 sm:py-8";
@@ -42,9 +43,10 @@ export default function Home() {
           <BoardingPass />
           <a
             href="#info"
-            className="pass-hint relative font-mono text-xs uppercase tracking-[0.25em] text-muted hover:text-text"
+            className="pass-hint relative flex items-center gap-2 font-mono text-xs uppercase tracking-[0.25em] text-muted hover:text-text"
           >
-            ↓ Scroll to take off
+            <PlaneIcon className="h-4 w-4 rotate-180 text-route" />
+            Take off
           </a>
         </section>
         <FlightLeg reverse to={{ code: "A1", label: "About" }} />
