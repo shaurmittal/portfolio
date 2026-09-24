@@ -1,6 +1,6 @@
 "use client";
 
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { profile } from "@/content/data";
 
 const address = profile.links.email.replace("mailto:", "");
@@ -25,11 +25,13 @@ export function EmailLink({
   className,
   title,
   ariaLabel,
+  style,
 }: {
   children: ReactNode;
   className?: string;
   title?: string;
   ariaLabel?: string;
+  style?: CSSProperties;
 }) {
   const onClick = async () => {
     try {
@@ -42,7 +44,7 @@ export function EmailLink({
   };
 
   return (
-    <a href={profile.links.email} onClick={onClick} className={className} title={title} aria-label={ariaLabel}>
+    <a href={profile.links.email} onClick={onClick} className={className} style={style} title={title} aria-label={ariaLabel}>
       {children}
     </a>
   );

@@ -105,6 +105,8 @@
 
 html {
   scroll-behavior: smooth;
+  /* Planes parked off-screen between sections must never make the page scroll sideways */
+  overflow-x: clip;
 }
 body {
   background: var(--bg);
@@ -525,4 +527,48 @@ body {
 }
 .plane-cursor-el[data-down="true"] svg {
   transform: scale(0.82);
+}
+
+/* ---------- Passport (contact) ---------- */
+/* Faint security-paper pattern, and a shadow into the spine between the pages */
+.passport-page {
+  background-image:
+    repeating-radial-gradient(circle at 20% 110%, transparent 0 14px, rgba(10, 79, 181, 0.045) 14px 15px),
+    linear-gradient(var(--spine-dir, to top), rgba(0, 0, 0, 0.14), transparent 28px);
+}
+.passport-right { --spine-dir: to bottom; }
+@media (min-width: 768px) {
+  .passport-left { --spine-dir: to left; }
+  .passport-right { --spine-dir: to right; }
+}
+/* Stamp ink: colour comes from currentColor, a second thin ring just inside the border */
+.visa-stamp {
+  mix-blend-mode: multiply;
+  transition: scale 0.2s ease, rotate 0.2s ease, background-color 0.2s ease;
+}
+.visa-ring {
+  box-shadow: inset 0 0 0 2px var(--paper), inset 0 0 0 3.5px currentColor;
+}
+a.visa-stamp:hover,
+a.visa-stamp:focus-visible {
+  rotate: 0deg !important;
+  scale: 1.08;
+  background-color: color-mix(in srgb, currentColor 8%, transparent);
+}
+/* Each stamp thuds down in turn once the passport is on screen (and again on replay) */
+@keyframes visa-stamp {
+  0% { opacity: 0; transform: scale(2.2); }
+  60% { opacity: 1; transform: scale(0.94); }
+  100% { opacity: 1; transform: scale(1); }
+}
+.js [data-reveal] .visa-stamp {
+  opacity: 0;
+}
+.js [data-reveal][data-in] .visa-stamp {
+  animation: visa-stamp 0.4s cubic-bezier(0.3, 0, 0.3, 1.4) both;
+  animation-delay: calc(0.5s + var(--i, 0) * 0.22s);
+}
+@media (prefers-reduced-motion: reduce) {
+  .js [data-reveal] .visa-stamp { opacity: 1; }
+  .js [data-reveal][data-in] .visa-stamp { animation: none; }
 }
