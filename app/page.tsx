@@ -7,6 +7,7 @@ import { FlightsMap } from "@/components/FlightsMap";
 import { InFlightInfo } from "@/components/InFlightInfo";
 import { Intro } from "@/components/Intro";
 import { Nav } from "@/components/Nav";
+import { PlaneCursor } from "@/components/PlaneCursor";
 import { PlaneIcon } from "@/components/PlaneIcon";
 import { RevealObserver } from "@/components/RevealObserver";
 
@@ -23,6 +24,7 @@ export default function Home() {
   return (
     <>
       <Intro />
+      <PlaneCursor />
       <Nav />
       <RevealObserver />
       <main id="main">
