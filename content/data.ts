@@ -131,14 +131,15 @@ export const about = {
   bio: [
     "I'm an Honours Computer Science co-op student at the University of Waterloo. What interests me about AI systems is the part that determines whether they hold up outside a demo: evaluation, data integrity, and the tooling that lets other people build on your work.",
     "That thread runs through a retrieval engine I benchmarked against real developer questions rather than synthetic ones, internal AI agent platforms and governance work at Docebo, and real-time full-stack applications built on WebSockets and REST. I work mainly in Python and JavaScript, across AWS, Docker, PostgreSQL, and modern web frameworks.",
-    "Outside of work I love to spend time on the field playing Soccer or refreshing my mind with some video games.",
+    "Outside of work I love to spend time on the field playing Soccer or refreshing my mind with some video games. I also have an active interest in travelling, and I'm always planning the next trip.",
   ],
-  // Seatback screen next to the bio. icon: "soccer" | "gaming" | "music" | "film" (drawn in components/Icons.tsx)
+  // Seatback screen next to the bio. icon: "soccer" | "gaming" | "music" | "film" | "travel" (drawn in components/Icons.tsx)
   entertainment: [
     { icon: "gaming", category: "Now playing", title: "Valorant", note: "Tactical shooter · PC" },
     { icon: "soccer", category: "Supporting", title: "FC Barcelona", note: "LaLiga" },
     { icon: "film", category: "Watching", title: "Outer Banks", note: "Netflix" },
     { icon: "music", category: "On repeat", title: "Noble", note: "The Kid LAROI" },
+    { icon: "travel", category: "Next destination", title: "New York", note: "USA" },
   ],
 };
 
