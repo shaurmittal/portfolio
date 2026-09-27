@@ -125,31 +125,20 @@ export const flights: Flight[] = [
       "Evaluated mobile tools and frameworks for performance and maintainability.",
     ],
   },
-  {
-    code: "SM243",
-    kind: "project",
-    destination: "LLM FACT CHECK",
-    year: "2024",
-    status: "landed",
-    when: "2024",
-    title: "Factual Errors by LLMs",
-    stack: ["Python"],
-    points: ["A model that analyses factual errors made by large language models like ChatGPT."],
-    links: [{ label: "GitHub", href: "https://github.com/shaurmittal/Factual-Errors-by-LLMs" }],
-  },
 ];
 
 export const about = {
   bio: [
-    "I'm a Computer Science student at the University of Waterloo who likes building AI tools that hold up outside the demo.",
-    "Most recently at Docebo, I shipped an agent feedback dashboard, a company-wide AI tools directory backed by an MCP server, and the sync jobs that keep an 800+ agent catalog accurate.",
-    "Off duty, you'll find me on a soccer pitch or deep in a video game.",
+    "I'm an Honours Computer Science co-op student at the University of Waterloo. What interests me about AI systems is the part that determines whether they hold up outside a demo: evaluation, data integrity, and the tooling that lets other people build on your work.",
+    "That thread runs through a retrieval engine I benchmarked against real developer questions rather than synthetic ones, internal AI agent platforms and governance work at Docebo, and real-time full-stack applications built on WebSockets and REST. I work mainly in Python and JavaScript, across AWS, Docker, PostgreSQL, and modern web frameworks.",
+    "Outside of work I love to spend time on the field playing Soccer or refreshing my mind with some video games.",
   ],
-  stats: [
-    { label: "Based in", value: "Waterloo, ON" },
-    { label: "Studying", value: "Honours CS, Co-op" },
-    { label: "Last flight", value: "AI Solutions Eng @ Docebo" },
-    { label: "Off duty", value: "Soccer · Video games" },
+  // Seatback screen next to the bio. icon: "soccer" | "gaming" | "music" | "film" (drawn in components/Icons.tsx)
+  entertainment: [
+    { icon: "gaming", category: "Now playing", title: "Valorant", note: "Tactical shooter · PC" },
+    { icon: "soccer", category: "Supporting", title: "FC Barcelona", note: "LaLiga" },
+    { icon: "film", category: "Watching", title: "Outer Banks", note: "Netflix" },
+    { icon: "music", category: "On repeat", title: "Noble", note: "The Kid LAROI" },
   ],
 };
 
@@ -224,7 +213,7 @@ export const destinations: Destination[] = [
 
 export const skills: { belt: string; items: string[] }[] = [
   { belt: "Languages", items: ["Python", "JavaScript", "Java", "C", "SQL"] },
-  { belt: "Frameworks", items: ["React", "Next.js", "Node.js", "Express", "LLM APIs", "RAG"] },
+  { belt: "Frameworks", items: ["React", "Next.js", "Node.js", "Express", "LLM APIs", "RAG pipelines"] },
   { belt: "Cloud", items: ["AWS", "Firebase", "GitLab CI/CD", "Docker"] },
   { belt: "Databases", items: ["PostgreSQL", "MongoDB", "Firestore"] },
   { belt: "Tools", items: ["Git", "Figma", "LaTeX", "REST APIs"] },

@@ -18,7 +18,7 @@ export function DestIcon({ icon, className = "" }: { icon: Destination["icon"]; 
 }
 
 // Icons for the boarding pass's in-flight entertainment chips
-export type InterestIconName = "soccer" | "gaming" | "ai";
+export type InterestIconName = "soccer" | "gaming" | "ai" | "music" | "film";
 
 export function InterestIcon({ icon, className = "" }: { icon: string; className?: string }) {
   return (
@@ -36,6 +36,18 @@ export function InterestIcon({ icon, className = "" }: { icon: string; className
           fill="currentColor"
           d="M7 7.5h10a5 5 0 0 1 4.9 6l-.7 3.4a2.5 2.5 0 0 1-4.4 1.1l-1.4-2h-6.8l-1.4 2a2.5 2.5 0 0 1-4.4-1.1l-.7-3.4A5 5 0 0 1 7 7.5zM7 10v1.6H5.4v1.6H7v1.6h1.6v-1.6h1.6v-1.6H8.6V10zm9.2.3a1.1 1.1 0 1 0 0 2.2 1.1 1.1 0 0 0 0-2.2zm-1.8 2.5a1.1 1.1 0 1 0 0 2.2 1.1 1.1 0 0 0 0-2.2z"
         />
+      )}
+      {icon === "music" && (
+        <path
+          fill="currentColor"
+          d="M19 3.5v11.8a3 3 0 1 1-1.8-2.75V7.4L9.8 9v8.3a3 3 0 1 1-1.8-2.75V5.6z"
+        />
+      )}
+      {icon === "film" && (
+        <g fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round">
+          <rect x="3.5" y="5" width="17" height="14" rx="2" />
+          <path d="M10 9.2v5.6l4.6-2.8z" fill="currentColor" />
+        </g>
       )}
       {icon === "ai" && (
         <path
