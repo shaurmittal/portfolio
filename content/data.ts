@@ -65,11 +65,12 @@ export const flights: Flight[] = [
     status: "landed",
     when: "Sep 2026",
     title: "FastAPI RAG Q&A Engine",
-    stack: ["Python", "Qdrant", "Streamlit", "OpenAI API"],
+    stack: ["Python", "Claude API", "Qdrant", "Streamlit", "Docker"],
     points: [
-      "Improved retrieval accuracy from 62% to 84% Recall@5 by implementing and benchmarking AST-aware code chunking and cross-encoder reranking against a naive fixed-size baseline.",
-      "Reduced hallucinated answers by identifying and fixing a multi-hop context-loss failure mode, measured via a custom LLM-as-judge faithfulness pipeline scored against a 50-question golden eval set.",
-      "Built an authentic evaluation benchmark of 50+ real developer questions by mining closed GitHub issues on the FastAPI repo, avoiding the synthetic test data most RAG projects rely on.",
+      "Built a cited-answer RAG system over FastAPI's docs and source code using Qdrant, local bge-small embeddings, a cross-encoder reranker, and Claude with native citations, deployed as a Streamlit demo.",
+      "Ran a 4-configuration ablation (chunking strategy × reranking) on 51 questions mined from 613 closed GitHub issues; paired bootstrap CIs showed reranking cost ~15× latency for no significant gain.",
+      "Found that a pooled, TREC-style relevance review recovered 28 correct answers the first-pass labels missed, raising hit@5 by ~0.10, a larger effect than any pipeline change.",
+      "Built an LLM-as-judge pipeline scoring claim-level faithfulness, correctness, and citation precision, validated against an independent rater (κ\u00a0=\u00a00.89), grading 204 answers for $9 via the Message Batches API.",
     ],
     links: [
       { label: "GitHub", href: "https://github.com/shaurmittal/rag-fastapi-eval" },
@@ -249,7 +250,7 @@ export const destinations: Destination[] = [
 
 export const skills: { belt: string; items: string[] }[] = [
   { belt: "Languages", items: ["Python", "TypeScript", "JavaScript", "Go", "Java", "C", "SQL"] },
-  { belt: "AI & LLMs", items: ["OpenAI API", "RAG pipelines", "LLM evaluation", "Qdrant", "MCP"] },
+  { belt: "AI & LLMs", items: ["Claude API", "OpenAI API", "RAG pipelines", "LLM evaluation", "Qdrant", "MCP"] },
   { belt: "Frameworks", items: ["React", "Next.js", "Node.js", "Express", "Streamlit"] },
   { belt: "Cloud & Data", items: ["AWS", "Snowflake", "PostgreSQL", "MongoDB", "Firestore", "Firebase"] },
   { belt: "Tools", items: ["Git", "Docker", "GitLab CI/CD", "REST APIs", "Stripe API", "Chrome Extensions"] },
