@@ -51,10 +51,11 @@ export const flights: Flight[] = [
     stack: ["React", "Next.js", "AWS", "MCP", "Glean", "GitLab"],
     points: [
       "Built a full-stack agent feedback dashboard (React, Glean OAuth, AWS CloudWatch/S3/Athena) giving agent owners role-scoped, self-service access to user feedback, replacing manual data pulls by AI Operations.",
+      "Built 20+ Glean agents and workflows for teams across the company.",
       "Engineered a company-wide AI portal (Next.js, MCP server, GitLab-backed) serving 900+ employees as a single hub for AI guides, the full agent catalog with Glean source links, and self-service skill and agent registration.",
       "Diagnosed a silent pagination bug truncating Glean API data, then shipped a reconciliation/soft-delete sync framework (capped at 30% deletions per run) that keeps an 800+ agent catalog in sync automatically.",
       "Audited the Glean agent catalog end-to-end, removing 670+ stale, orphaned, or duplicate agents (a 67% reduction), and authored the lifecycle/governance strategy adopted for ongoing catalog hygiene.",
-      "Led a competitive evaluation of 5+ AI/no-code platforms, producing a coverage matrix and executive report that informed platform investment.",
+      "Ran pilot evaluations of vendor AI and automation platforms, delivering reports comparing their workflow-building and agent capabilities.",
     ],
   },
   {
@@ -109,6 +110,26 @@ export const flights: Flight[] = [
       "Integrated a Snowflake knowledge base of cited embodied-carbon estimates and added voice search via OpenAI transcription with silence detection, persisting budget and location context across queries.",
     ],
     links: [{ label: "Devpost", href: "https://devpost.com/software/verte-niek4b" }],
+  },
+  {
+    code: "SM265",
+    kind: "project",
+    destination: "COUNTERSIGN",
+    year: "2026",
+    status: "landed",
+    when: "Oct 2026 · Cal Hacks 13.0",
+    title: "Countersign: AI payment fraud defense for small businesses",
+    stack: ["TypeScript", "Next.js", "Convex", "Claude API", "Cartesia Voice"],
+    points: [
+      "Built a second-signer system at Cal Hacks 13.0 that verifies outbound payment requests before money moves, keeping LLMs off the authorization path: Claude parses requests and flags injection, while a deterministic, unit-tested TypeScript policy engine makes every pay/refuse decision with no model calls.",
+      "Largest contributor on a team of 4 (82 of 152 commits), owning multi-channel intake across voice (Cartesia), email, WhatsApp, and web chat, plus the out-of-band callback agent that verifies vendors on the number already on file rather than the one in the request.",
+      "Authenticated email on real SPF/DKIM/DMARC results via Postmark Inbound rather than the displayed sender, defeating forged vendor and owner emails.",
+      "Shipped the operator Next.js UI, backed by a 39-scenario CI suite (26/26 scams blocked, 13/13 legitimate bills handled, zero wrong payments) over 1,126 tests.",
+    ],
+    links: [
+      { label: "GitHub", href: "https://github.com/shaurmittal/countersign-calhacks" },
+      { label: "Devpost", href: "https://devpost.com/software/countersign-jnfqil" },
+    ],
   },
   {
     code: "SM251",
@@ -235,22 +256,21 @@ export const destinations: Destination[] = [
     story:
       "AI Solutions Engineering intern at Docebo. I shipped an agent feedback dashboard, a company-wide AI tools directory backed by an MCP server, and the sync jobs that keep an 800+ agent catalog accurate.",
   },
-  // Example of a new trip:
-  // {
-  //   code: "SFO",
-  //   city: "San Francisco",
-  //   country: "USA",
-  //   when: "Oct 2026",
-  //   icon: "event",
-  //   story: "Flew out for Cal Hacks. ...",
-  //   image: "/images/destinations/sf.jpg",
-  //   imageAlt: "Our team at Cal Hacks",
-  // },
+  {
+    code: "SFO",
+    city: "San Francisco",
+    country: "USA",
+    when: "Oct 2026",
+    icon: "event",
+    story:
+      "Flew out for Cal Hacks 13.0, where our team of 4 built Countersign: a second signer for small businesses that answers the phone, reads every payment request, and calls the real vendor back, while only deterministic code can release a payment.",
+  },
 ];
 
 export const skills: { belt: string; items: string[] }[] = [
   { belt: "Languages", items: ["Python", "TypeScript", "JavaScript", "Go", "Java", "C", "SQL"] },
   { belt: "AI & LLMs", items: ["Claude API", "OpenAI API", "RAG pipelines", "LLM evaluation", "Qdrant", "MCP"] },
+  { belt: "Automation & Agents", items: ["Glean Agents & Workflows", "Zapier", "n8n"] },
   { belt: "Frameworks", items: ["React", "Next.js", "Node.js", "Express", "Streamlit"] },
   { belt: "Cloud & Data", items: ["AWS", "Snowflake", "PostgreSQL", "MongoDB", "Firestore", "Firebase"] },
   { belt: "Tools", items: ["Git", "Docker", "GitLab CI/CD", "REST APIs", "Stripe API", "Chrome Extensions"] },
